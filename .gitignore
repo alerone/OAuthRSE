@@ -1,2 +1,7 @@
 secrets.json
 
+# Ignorar todos los directorios __pycache__
+__pycache__/
+# Ignorar archivos compilados de Python
+*.pyc
+*.pyo

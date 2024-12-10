@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Tarea</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='create_todo.css') }}">
+</head>
+
+<body>
+    <div class="header">
+        <a href="{{ url_for('home') }}" class="back-btn">⟵ Volver</a>
+    </div>
+    <div class="container">
+        <h1>Crear Nueva Tarea</h1>
+        <form action="" method="POST">
+            <label for="name">Nombre de la Tarea:</label>
+            <input type="text" id="name" name="name" placeholder="Nombre de la tarea" required>
+
+            <label for="description">Descripción:</label>
+            <textarea id="description" name="description" placeholder="Descripción de la tarea"></textarea>
+
+            <button type="submit">Crear Tarea</button>
+        </form>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="messages">
+            {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+</body>
+
+</html>

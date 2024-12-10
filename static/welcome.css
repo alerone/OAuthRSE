@@ -4,16 +4,7 @@ body {
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-.container {
-    text-align: center;
-    background: #ffffff;
-    padding: 20px 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    flex-direction: column;
 }
 h1 {
     color: #333;
@@ -23,17 +14,73 @@ p {
     color: #555;
 }
 .profile-pic {
-    width: 100px;
-    height: 100px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    margin: 20px 0;
+    margin-right: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.btn {
-    display: inline-block;
-    margin-top: 20px;
+.container {
+    width:66%;
+    max-width: 1200px; /* Ancho máximo del contenido */
+    margin: 0 auto; /* Centra horizontalmente */
+    margin-top: 20px; /* Añade espacio para no superponer el header */
+    padding: 20px;
+    background-color: #ffffff; /* Fondo blanco */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para destacar */
+}
+.header {
+    background-color: #007bff; /* Fondo azul */
+    color: white;
     padding: 10px 20px;
-    background: #ff4b5c;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* Información del usuario */
+.user-info {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.todo-header {
+    display: flex;
+    justify-content: space-between; /* Separar el título y la información del usuario */
+    align-items: center;
+}
+
+.user-info-todo {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #666666;
+}
+
+.profile-pic-todo {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón de cerrar sesión */
+.logout-btn-container {
+    display: flex;
+    align-items: center;
+}
+
+.add-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #4285F4;
     color: #ffffff;
     font-size: 16px;
     font-weight: bold;
@@ -41,6 +88,46 @@ p {
     border-radius: 5px;
     transition: background 0.3s;
 }
-.btn:hover {
-    background: #e8434d;
+.add-btn:hover {
+    background: #357ae8;
+}
+
+.logout-btn {
+    background-color: #dc3545; /* Rojo */
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #c82333; /* Rojo más oscuro */
+}
+
+.todo-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.todo-list li {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.todo-list li h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.todo-list li p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #666;
 }
