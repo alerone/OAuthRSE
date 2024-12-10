@@ -11,8 +11,7 @@
 <body>
     <div class="header">
         <div class="user-info">
-            <img src="{{ session['user'].get('picture', '/static/default-user.png') }}" alt="Foto de usuario"
-                class="profile-pic">
+            <img src="/proxy_image?url={{ user['picture'] }}" alt="Foto de usuario" class="profile-pic">
             <strong>{{ user['name'] }}</strong>
         </div>
         <div class="logout-btn-container">
@@ -33,7 +32,7 @@
                 <div class="todo-header">
                     <h2>{{ todo.name }}</h2>
                     <div class="user-info-todo">
-                        <img src="{{ todo.creator.picture }}" alt="Usuario" class="profile-pic-todo">
+                        <img src="/proxy_image?url={{ todo.creator.picture }}" alt="Usuario" class="profile-pic-todo">
                         <strong>{{ todo.creator.name }}</strong>
                     </div>
                 </div>

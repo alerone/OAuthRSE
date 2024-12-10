@@ -5,3 +5,5 @@ __pycache__/
 # Ignorar archivos compilados de Python
 *.pyc
 *.pyo
+
+image_cache

@@ -1,6 +1,8 @@
-from flask import Flask, render_template, url_for, redirect, session
+from flask import Flask, render_template, session, request, send_file
 import hashlib
 import os
+import requests
+from io import BytesIO
 from authlib.integrations.flask_client import OAuth
 from routes.auth import auth_bp, oauth
 from routes.todos import todo_bp
@@ -25,6 +27,34 @@ SCOPES = [
     "https://www.googleapis.com/auth/userinfo.profile"   
 ]
 
+CACHE_DIR = "image_cache"
+os.makedirs(CACHE_DIR, exist_ok=True)
+
+@app.route('/proxy_image')
+def proxy_image():
+    image_url = request.args.get('url')
+    if not image_url:
+        return "URL no especificada", 400
+
+    # Generar un nombre de archivo basado en la URL
+    image_filename = os.path.join(CACHE_DIR, image_url.split('/')[-1])
+
+    # Si la imagen ya está en caché, devolverla directamente
+    if os.path.exists(image_filename):
+        return send_file(image_filename, mimetype="image/jpeg")
+
+    try:
+        # Solicitar la imagen al servidor remoto
+        response = requests.get(image_url, stream=True)
+        response.raise_for_status()
+
+        # Guardar la imagen en caché
+        with open(image_filename, "wb") as f:
+            f.write(response.content)
+
+        return send_file(image_filename, mimetype=response.headers.get('Content-Type'))
+    except requests.exceptions.RequestException:
+        return "Error al cargar la imagen", 500
 
 @app.route("/")
 def home():
