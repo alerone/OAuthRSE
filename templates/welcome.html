@@ -19,30 +19,50 @@
         </div>
     </div>
     <div class="container">
-        <div class="header-todo">
+        <div class="todo-header">
             <h1>Lista de Tareas</h1>
             <a href="{{ url_for('todo.create') }}" class="add-btn">Crear nueva To Do</a>
         </div>
 
 
         {% if todos %}
-        <ul class="todo-list">
-            {% for todo in todos %}
-            <li>
-                <div class="todo-header">
-                    <h2>{{ todo.name }}</h2>
-                    <div class="user-info-todo">
-                        <img src="/proxy_image?url={{ todo.creator.picture }}" alt="Usuario" class="profile-pic-todo">
-                        <strong>{{ todo.creator.name }}</strong>
+        <div class="todo-list-container">
+            <ul class="todo-list">
+                {% for todo in todos %}
+                <li>
+                    <div class="todo-header-item">
+                        <h2>{{ todo.name }}</h2>
+                        <div class="user-info-todo">
+                            <img src="/proxy_image?url={{ todo.creator.picture }}" alt="Usuario"
+                                class="profile-pic-todo">
+                            <strong>{{ todo.creator.name }}</strong>
+                        </div>
                     </div>
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
+                    <div class="actions">
+                        <form action="{{ url_for('todo.delete', todo_id=todo.id) }}" method="post"
+                            style="display:inline;">
+                            <button type="submit" class="delete-btn">Eliminar</button>
+                        </form>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
         {% else %}
         <p>No hay tareas pendientes.</p>
         {% endif %}
     </div>
+    <!-- Contenedor para mensajes Flash -->
+    <div id="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash-message {{ category }}">{{ message }}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    <script src="{{ url_for('static', filename='javascript/flash_messages.js') }}"></script>
 </body>
 
 </html>

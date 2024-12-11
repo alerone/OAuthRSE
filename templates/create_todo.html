@@ -10,7 +10,10 @@
 
 <body>
     <div class="header">
-        <a href="{{ url_for('home') }}" class="back-btn">⟵ Volver</a>
+        <a href="{{ url_for('home') }}" class="back-btn">Volver</a>
+        <div class="logout-btn-container">
+            <a href="{{ url_for('auth.logout') }}" class="logout-btn">Cerrar Sesión</a>
+        </div>
     </div>
     <div class="container">
         <h1>Crear Nueva Tarea</h1>
@@ -33,6 +36,7 @@
         {% endif %}
         {% endwith %}
     </div>
+    <script src="{{ url_for('static', filename='javascript/flash_messages.js') }}"></script>
 </body>
 
 </html>

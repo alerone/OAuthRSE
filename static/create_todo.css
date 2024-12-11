@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-    max-width: 600px;
+    max-width: 50%;
     margin: 50px auto;
     background: white;
     padding: 20px;
@@ -14,10 +14,15 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+
 .header {
     background-color: #007bff; /* Azul */
+    height: 40px;
     color: white;
     padding: 10px 20px;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
     text-align: left;
     font-size: 18px;
     position: sticky;
@@ -26,14 +31,40 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.header .back-btn {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
+.logout-btn-container {
+    display: flex;
+    align-items: center;
 }
 
+.logout-btn {
+    background-color: #dc3545; /* Rojo */
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #c82333; /* Rojo más oscuro */
+}
+
+.header .back-btn {
+    display: inline-block;
+    padding: 8px 12px;
+    background: #f48c42;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
 .header .back-btn:hover {
-    text-decoration: underline;
+    background: #e87a35;
 }
 
 h1 {
@@ -45,17 +76,31 @@ label {
     margin: 10px 0 5px;
 }
 
-input, textarea, button {
-    width: 100%;
+input, button {
+    width: calc(100% - 10px); /* Ajusta el ancho considerando el padding */
+    padding: 10px; /* Asegura un padding uniforme */
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+textarea {
+    width: calc(100% - 10px);
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    box-sizing: border-box;
+    resize: vertical; /* Restringir el redimensionamiento a solo vertical */
+    max-width: calc(100% - 10px); /* Asegura que no se expanda más allá de su contenedor */
 }
 
 button {
     background-color: #007bff;
     color: white;
+    font-weight: bold;
+    font-size: 14px;
     border: none;
     cursor: pointer;
 }

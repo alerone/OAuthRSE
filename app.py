@@ -59,9 +59,8 @@ def proxy_image():
 @app.route("/")
 def home():
     user = session.get("user")
-    todos = get_all_todos()
     if user:
-        return render_template('welcome.html', user = user, todos=todos)
+        return render_template('welcome.html', user = user, todos=get_all_todos())
     
     return render_template("home.html")
 
