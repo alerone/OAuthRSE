@@ -3,6 +3,20 @@ from db.todo_crud import create_todo, get_todo_by_id, delete_todo
 
 todo_bp = Blueprint('todo', __name__)
 
+@todo_bp.route('/todo_info/<int:todo_id>', methods=['GET'])
+def info(todo_id: int):
+
+    if 'user' not in session:
+        flash("Debes iniciar sesión para crear una tarea", 'error')
+        return redirect(url_for('auth.login'))
+    todo = get_todo_by_id(todo_id)
+
+    if not todo:
+        flash('La tarea no existe.', 'error')
+        return redirect(url_for('home'))
+
+    return render_template('create_todo.html', todo=todo)
+
 @todo_bp.route('/create', methods=['GET', 'POST'])
 def create():
     if 'user' not in session:
@@ -22,7 +36,7 @@ def create():
         flash('Tarea creada con éxito!', 'success')
         return redirect(url_for('todo.create'))
     
-    return render_template('create_todo.html')
+    return render_template('create_todo.html', todo=None)
 
 @todo_bp.route('/delete/<int:todo_id>', methods=['POST'])
 def delete(todo_id: int):

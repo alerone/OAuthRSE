@@ -1,18 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='welcome.css') }}">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='welcome.css') }}" />
     <title>Bienvenido</title>
 </head>
 
 <body>
     <div class="header">
         <div class="user-info">
-            <img src="/proxy_image?url={{ user['picture'] }}" alt="Foto de usuario" class="profile-pic">
-            <strong>{{ user['name'] }}</strong>
+            <img src="/proxy_image?url={{ user['picture'] }}" alt="Foto de usuario" class="profile-pic" />
+            <strong style="margin-right: 10px;">{{ user['name'] }} </strong>
+            <strong>[{{ user['email'] }}]</strong>
         </div>
         <div class="logout-btn-container">
             <a href="{{ url_for('auth.logout') }}" class="logout-btn">Cerrar Sesión</a>
@@ -24,23 +25,24 @@
             <a href="{{ url_for('todo.create') }}" class="add-btn">Crear nueva To Do</a>
         </div>
 
-
         {% if todos %}
         <div class="todo-list-container">
             <ul class="todo-list">
                 {% for todo in todos %}
                 <li>
-                    <div class="todo-header-item">
-                        <h2>{{ todo.name }}</h2>
-                        <div class="user-info-todo">
-                            <img src="/proxy_image?url={{ todo.creator.picture }}" alt="Usuario"
-                                class="profile-pic-todo">
-                            <strong>{{ todo.creator.name }}</strong>
+                    <a href="{{ url_for('todo.info', todo_id=todo.id) }}" style="text-decoration: none; color: inherit;">
+                        <div class="todo-header-item">
+                            <h2>{{ todo.name }}</h2>
+                            <div class="user-info-todo">
+                                <img src="/proxy_image?url={{ todo.creator.picture }}" alt="Usuario"
+                                    class="profile-pic-todo" />
+                                <strong>{{ todo.creator.name }}</strong>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                     <div class="actions">
                         <form action="{{ url_for('todo.delete', todo_id=todo.id) }}" method="post"
-                            style="display:inline;">
+                            style="display: inline">
                             <button type="submit" class="delete-btn">Eliminar</button>
                         </form>
                     </div>
@@ -54,13 +56,10 @@
     </div>
     <!-- Contenedor para mensajes Flash -->
     <div id="flash-messages">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        {% for category, message in messages %}
+        {% with messages = get_flashed_messages(with_categories=true) %} {% if
+        messages %} {% for category, message in messages %}
         <div class="flash-message {{ category }}">{{ message }}</div>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
+        {% endfor %} {% endif %} {% endwith %}
     </div>
     <script src="{{ url_for('static', filename='javascript/flash_messages.js') }}"></script>
 </body>

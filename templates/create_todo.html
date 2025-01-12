@@ -16,6 +16,11 @@
         </div>
     </div>
     <div class="container">
+        {% if todo %}
+            <h1>{{ todo.name }}</h1>
+            <div class="textarea">{{ todo.description }}</div>
+        {% endif %}  
+        {% if todo is none %}
         <h1>Crear Nueva Tarea</h1>
         <form action="" method="POST">
             <label for="name">Nombre de la Tarea:</label>
@@ -26,6 +31,7 @@
 
             <button type="submit">Crear Tarea</button>
         </form>
+        {% endif %}
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         <ul class="messages">
