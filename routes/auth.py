@@ -11,12 +11,14 @@ auth_bp = Blueprint('auth', __name__)
 
 oauth = OAuth()
 
+
 SCOPES = [
+    "https://www.googleapis.com/auth/drive.readonly",
     "https://www.googleapis.com/auth/userinfo.email",  
     "https://www.googleapis.com/auth/userinfo.profile"   
 ]
 
-oauth.register(
+google = oauth.register(
     "google",
     client_id = secrets["client_id"],
     client_secret = secrets["client_secret"],
@@ -31,19 +33,22 @@ oauth.register(
 @auth_bp.route("/login")
 def login():
     redirect_uri = url_for('auth.authorize', _external = True)
-    return oauth.google.authorize_redirect(redirect_uri, prompt = 'select_account')
+    return google.authorize_redirect(redirect_uri, prompt = 'select_account')
 
 @auth_bp.route("/logout")
 def logout():
     session.pop('user', None)
+    session.pop('token', None)
+    session.pop('selected_photo_id', None)
     return redirect('/')
 
 
 
 @auth_bp.route("/auth/callback")
 def authorize():
-    token = oauth.google.authorize_access_token()
-    user_info = oauth.google.get('userinfo').json()
+    token = google.authorize_access_token()
+    user_info = google.get('userinfo').json()
+    session['token'] = token
     user = get_user_by_email(user_info.get('email'))
     if user is None:
         user = create_user(user_info.get('name'), user_info.get('email'), user_info.get('picture'))
@@ -61,5 +66,4 @@ def authorize():
         'email': user.email,
         'picture': user_info.get('picture')
     }
-    print(user_info)
     return redirect('/')

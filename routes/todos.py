@@ -32,11 +32,12 @@ def create():
             return render_template('create_todo.html')
         print("created by", session['user']['id'])
         
-        create_todo(name=name, description=description, created_by=session['user']['id'])
+        create_todo(name=name, description=description, created_by=session['user']['id'], photo_id=session.get('selected_photo_id', ''))
+        session.pop('selected_photo_id')
         flash('Tarea creada con éxito!', 'success')
         return redirect(url_for('todo.create'))
-    
-    return render_template('create_todo.html', todo=None)
+    selected_photo = session.get('selected_photo_id', '')
+    return render_template('create_todo.html', todo=None, selected_photo_id=selected_photo)
 
 @todo_bp.route('/delete/<int:todo_id>', methods=['POST'])
 def delete(todo_id: int):

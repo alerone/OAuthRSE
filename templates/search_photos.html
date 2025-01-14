@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='search_photos.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Selecciona una Foto</h1>
+    <ul>
+      {% for photo in photos %}
+      <li>
+        <div class="photo-item">
+          <img
+            src="/proxy_image?url={{ photo.thumbnailLink }}"
+            alt="{{ photo.name }}"
+            style="width: 100px; height: auto"
+          />
+          <p>{{ photo.name }}</p>
+          <form action="{{ url_for('google.select_photo') }}" method="POST">
+            <input type="hidden" name="photo_id" value="{{ photo.id }}" />
+            <button type="submit">Seleccionar</button>
+          </form>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

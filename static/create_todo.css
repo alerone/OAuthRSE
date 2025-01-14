@@ -129,3 +129,16 @@ button:hover {
     background-color: #f8d7da;
     color: #721c24;
 }
+.photo{
+    border: 1px solid #000;
+    border-radius: 10px;
+    width: auto;
+    height: 100px;
+}
+.photo-info{
+    
+    border: 1px solid #000;
+    border-radius: 10px;
+    width: auto;
+    height: 250px;
+}

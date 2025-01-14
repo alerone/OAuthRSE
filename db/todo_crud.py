@@ -2,10 +2,10 @@ from .models import ToDo
 from .database import SessionLocal 
 from sqlalchemy.orm import joinedload
 
-def create_todo(name: str, description: str, created_by: int):
+def create_todo(name: str, description: str, created_by: int, photo_id: str):
     db = SessionLocal()
     try:
-        new_todo = ToDo(name=name, description=description, created_by=created_by)
+        new_todo = ToDo(name=name, description=description, created_by=created_by, photo_id=photo_id)
         db.add(new_todo)
         db.commit()
         db.refresh(new_todo)

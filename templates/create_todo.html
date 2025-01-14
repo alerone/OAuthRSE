@@ -1,48 +1,90 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Crear Tarea</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='create_todo.css') }}">
-</head>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='create_todo.css') }}"
+    />
+  </head>
 
-<body>
+  <body>
     <div class="header">
-        <a href="{{ url_for('home') }}" class="back-btn">Volver</a>
-        <div class="logout-btn-container">
-            <a href="{{ url_for('auth.logout') }}" class="logout-btn">Cerrar Sesión</a>
-        </div>
+      <a href="{{ url_for('home') }}" class="back-btn">Volver</a>
+      <div class="logout-btn-container">
+        <a href="{{ url_for('auth.logout') }}" class="logout-btn"
+          >Cerrar Sesión</a
+        >
+      </div>
     </div>
     <div class="container">
-        {% if todo %}
-            <h1>{{ todo.name }}</h1>
-            <div class="textarea">{{ todo.description }}</div>
-        {% endif %}  
-        {% if todo is none %}
-        <h1>Crear Nueva Tarea</h1>
-        <form action="" method="POST">
-            <label for="name">Nombre de la Tarea:</label>
-            <input type="text" id="name" name="name" placeholder="Nombre de la tarea" required>
+      {% if todo %}
+      <div class="header-info">
+        <h1>{{ todo.name }}</h1>
+        <img
+          src="/proxy_image?url=https://drive.google.com/uc?id={{ todo.photo_id }}"
+          alt="image from google drive"
+          class="photo-info"
+        />
+      </div>
+      <div class="textarea">{{ todo.description }}</div>
+      {% endif %} {% if todo is none %}
+      <h1>Crear Nueva Tarea</h1>
+      <form action="" method="POST">
+        <div class="photo-selection">
+          {% if selected_photo_id %}
+          <div>
+            <img
+              src="/proxy_image?url=https://drive.google.com/uc?id={{ selected_photo_id }}"
+              alt="Foto de la tarea"
+              class="photo"
+            />
+          </div>
+          {% endif %}
+          <input
+            type="text"
+            id="photo_id"
+            name="photo_id"
+            value="{{ selected_photo_id }}"
+            placeholder="Selecciona una foto"
+            readonly
+          />
+          <button
+            type="button"
+            onclick="window.location.href='{{ url_for('google.search_photos') }}'"
+          >
+            Buscar Foto
+          </button>
+        </div>
+        <label for="name">Nombre de la Tarea:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Nombre de la tarea"
+          required
+        />
 
-            <label for="description">Descripción:</label>
-            <textarea id="description" name="description" placeholder="Descripción de la tarea"></textarea>
+        <label for="description">Descripción:</label>
+        <textarea
+          id="description"
+          name="description"
+          placeholder="Descripción de la tarea"
+        ></textarea>
 
-            <button type="submit">Crear Tarea</button>
-        </form>
-        {% endif %}
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <ul class="messages">
-            {% for category, message in messages %}
-            <li class="{{ category }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
+        <button type="submit">Crear Tarea</button>
+      </form>
+      {% endif %} {% with messages = get_flashed_messages(with_categories=true)
+      %} {% if messages %}
+      <ul class="messages">
+        {% for category, message in messages %}
+        <li class="{{ category }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %}
     </div>
     <script src="{{ url_for('static', filename='javascript/flash_messages.js') }}"></script>
-</body>
-
+  </body>
 </html>
