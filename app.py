@@ -24,11 +24,6 @@ app.register_blueprint(google_bp)
 Base.metadata.create_all(bind = engine)
 
 
-SCOPES = [
-    "https://www.googleapis.com/auth/drive.readonly",
-    "https://www.googleapis.com/auth/userinfo.email",  
-    "https://www.googleapis.com/auth/userinfo.profile"   
-]
 
 CACHE_DIR = "image_cache"
 os.makedirs(CACHE_DIR, exist_ok=True)

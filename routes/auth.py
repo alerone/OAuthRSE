@@ -11,7 +11,9 @@ auth_bp = Blueprint('auth', __name__)
 
 oauth = OAuth()
 
+
 SCOPES = [
+    "https://www.googleapis.com/auth/drive.readonly",
     "https://www.googleapis.com/auth/userinfo.email",  
     "https://www.googleapis.com/auth/userinfo.profile"   
 ]
@@ -37,6 +39,7 @@ def login():
 def logout():
     session.pop('user', None)
     session.pop('token', None)
+    session.pop('selected_photo_id', None)
     return redirect('/')
 
 

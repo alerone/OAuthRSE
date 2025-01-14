@@ -22,6 +22,7 @@ class ToDo(Base):
     description = Column(Text, nullable=True)
     # Clave foránea para relacionar con el usuario
     created_by = Column(Integer, ForeignKey('users.id'), nullable=False)
+    photo_id = Column(String, nullable=True)
 
     # Relación con User
     creator = relationship("User", back_populates="todos")

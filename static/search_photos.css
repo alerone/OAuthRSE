@@ -1,0 +1,94 @@
+/* General */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Título */
+h1 {
+    color: #333;
+    margin-top: 20px;
+    font-size: 2rem;
+    text-align: center;
+}
+
+/* Galería de Fotos */
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Estilo de los elementos */
+li {
+    background: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+li:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor de la foto */
+.photo-item {
+    text-align: center;
+    padding: 15px;
+}
+
+/* Imágenes */
+.photo-item img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #ddd;
+    transition: border-color 0.3s ease;
+}
+
+.photo-item img:hover {
+    border-color: #007bff;
+}
+
+/* Nombre de la Foto */
+.photo-item p {
+    margin: 10px 0;
+    color: #555;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+/* Botón */
+.photo-item button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.photo-item button:hover {
+    background: #0056b3;
+    transform: translateY(-2px);
+}
+
+.photo-item button:active {
+    transform: translateY(0);
+    background: #004494;
+}
+
