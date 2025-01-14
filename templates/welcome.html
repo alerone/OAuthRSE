@@ -22,37 +22,38 @@
     <div class="container">
         <div class="todo-header">
             <h1>Lista de Tareas</h1>
-            <a href="{{ url_for('todo.create') }}" class="add-btn">Crear nueva To Do</a>
+            <button type="button" onclick="window.location.href='{{ url_for('google.search_photos') }}'">Buscar Foto</button>
         </div>
+        <a href="{{ url_for('todo.create') }}" class="add-btn">Crear nueva To Do</a>
+    </div>
 
-        {% if todos %}
-        <div class="todo-list-container">
-            <ul class="todo-list">
-                {% for todo in todos %}
-                <li>
-                    <a href="{{ url_for('todo.info', todo_id=todo.id) }}" style="text-decoration: none; color: inherit;">
-                        <div class="todo-header-item">
-                            <h2>{{ todo.name }}</h2>
-                            <div class="user-info-todo">
-                                <img src="/proxy_image?url={{ todo.creator.picture }}" alt="Usuario"
-                                    class="profile-pic-todo" />
-                                <strong>{{ todo.creator.name }}</strong>
-                            </div>
+    {% if todos %}
+    <div class="todo-list-container">
+        <ul class="todo-list">
+            {% for todo in todos %}
+            <li>
+                <a href="{{ url_for('google.search_photos') }}" style="text-decoration: none; color: inherit;">
+                    <div class="todo-header-item">
+                        <h2>{{ todo.name }}</h2>
+                        <div class="user-info-todo">
+                            <img src="/proxy_image?url={{ todo.creator.picture }}" alt="Usuario"
+                                class="profile-pic-todo" />
+                            <strong>{{ todo.creator.name }}</strong>
                         </div>
-                    </a>
-                    <div class="actions">
-                        <form action="{{ url_for('todo.delete', todo_id=todo.id) }}" method="post"
-                            style="display: inline">
-                            <button type="submit" class="delete-btn">Eliminar</button>
-                        </form>
                     </div>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% else %}
-        <p>No hay tareas pendientes.</p>
-        {% endif %}
+                </a>
+                <div class="actions">
+                    <form action="{{ url_for('todo.delete', todo_id=todo.id) }}" method="post" style="display: inline">
+                        <button type="submit" class="delete-btn">Eliminar</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+    <p>No hay tareas pendientes.</p>
+    {% endif %}
     </div>
     <!-- Contenedor para mensajes Flash -->
     <div id="flash-messages">

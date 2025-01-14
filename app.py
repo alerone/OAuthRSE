@@ -5,6 +5,7 @@ import requests
 from io import BytesIO
 from authlib.integrations.flask_client import OAuth
 from routes.auth import auth_bp, oauth
+from routes.google_drive import google_bp
 from routes.todos import todo_bp
 from db.database import Base, engine
 from db.todo_crud import get_all_todos
@@ -17,12 +18,14 @@ oauth.init_app(app)
 
 app.register_blueprint(auth_bp)
 app.register_blueprint(todo_bp, url_prefix='/todo')
+app.register_blueprint(google_bp)
 
 # Crear las tablas en la base de datos
 Base.metadata.create_all(bind = engine)
 
 
 SCOPES = [
+    "https://www.googleapis.com/auth/drive.readonly",
     "https://www.googleapis.com/auth/userinfo.email",  
     "https://www.googleapis.com/auth/userinfo.profile"   
 ]
